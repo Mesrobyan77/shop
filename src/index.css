@@ -1,0 +1,30 @@
+@font-face {
+    font-family: "Digital Numbers";
+    src: url("./assets/fonts/DigitalNumbers-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+
+
+body{
+    background-color: #F6F5EC;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ol, ul, li {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+}
