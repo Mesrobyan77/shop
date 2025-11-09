@@ -1,7 +1,7 @@
 import styles from "./Footer.module.scss";
 import { NavLink } from "react-router-dom";
 import man from "../../assets/images/footer/footerImg1.png";
-import woman from "../../assets/images/footer/footerImg2.png";
+import woman from "../../assets/images/footer/footerimg2.png";
 import { LogoName } from "../../costants";
 
 function Footer() {
