@@ -5,7 +5,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-
 import styles from "./TestimonialsCarousel.module.scss";
 import type { Testimonial } from "../../types";
 import TestimonialCard from "../TestimonialCard/TestimonialCard";
