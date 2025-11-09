@@ -1,10 +1,4 @@
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, A11y } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-
+import React, { useRef, useEffect, useState } from "react";
 import styles from "./TestimonialsCarousel.module.scss";
 import type { Testimonial } from "../../types";
 import TestimonialCard from "../TestimonialCard/TestimonialCard";
@@ -20,6 +14,36 @@ const TestimonialsCarousel: React.FC<Props> = ({
   subtitle = "Hear from our happy customers who love our premium quality products and excellent service.",
   testimonials,
 }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Autoplay effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => {
+        const next = prev + 1;
+        if (next >= testimonials.length) return 0;
+        return next;
+      });
+    }, 3000); // 3 seconds
+
+    return () => clearInterval(interval);
+  }, [testimonials.length]);
+
+  // Scroll to current slide
+  useEffect(() => {
+    if (containerRef.current) {
+      const container = containerRef.current;
+      const slideWidth = container.firstChild
+        ? (container.firstChild as HTMLElement).clientWidth
+        : 0;
+      container.scrollTo({
+        left: slideWidth * currentIndex,
+        behavior: "smooth",
+      });
+    }
+  }, [currentIndex]);
+
   return (
     <section className={styles.wrap}>
       <div className={styles.header}>
@@ -27,28 +51,12 @@ const TestimonialsCarousel: React.FC<Props> = ({
         <p className={styles.subtitle}>{subtitle}</p>
       </div>
 
-      <div className={styles.sliderWrap}>
-        <Swiper
-          modules={[Navigation, Pagination, A11y]}
-          navigation
-          pagination={{ clickable: true }}
-          centeredSlides
-          initialSlide={1}
-          spaceBetween={24}
-          slidesPerView={1}
-          breakpoints={{
-            700: { slidesPerView: 1.2 },
-            900: { slidesPerView: 1.6 },
-            1200: { slidesPerView: 2.2 },
-          }}
-          className={styles.swiper}
-        >
-          {testimonials.map((t, i) => (
-            <SwiperSlide key={i} className={styles.slide}>
-              <TestimonialCard item={t} featured />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+      <div className={styles.sliderWrap} ref={containerRef}>
+        {testimonials.map((t, i) => (
+          <div key={i} className={styles.slide}>
+            <TestimonialCard item={t} featured />
+          </div>
+        ))}
       </div>
     </section>
   );

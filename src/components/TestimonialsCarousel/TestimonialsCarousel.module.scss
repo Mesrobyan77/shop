@@ -51,3 +51,31 @@
 .slide {
   padding: 10px 4px 24px;
 }
+
+.sliderWrap {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 24px;
+  padding-bottom: 10px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .slide {
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+    width: 300px;
+
+    @media (min-width: 700px) {
+      width: 350px;
+    }
+    @media (min-width: 900px) {
+      width: 400px;
+    }
+    @media (min-width: 1200px) {
+      width: 450px;
+    }
+  }
+}
